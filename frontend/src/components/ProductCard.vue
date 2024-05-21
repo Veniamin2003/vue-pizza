@@ -12,10 +12,10 @@
 				<b>{{ price }}</b>
 			</div>
 			
-			<img @click="onClickAdd" @update:isActive="isActive = $event" src="../img/plus.svg" alt="Plus" />
+			<img @click="openPopup" @update:isActive="isActive = $event" src="../img/plus.svg" alt="Plus" />
 		</div>
 	</div>
-	<Popup :isActive="isActive"/>
+	<Popup :title="name" :price="price" :isActive="isActive" @addOrder="addOrder"/>
 </template>
 
 <script>
@@ -49,14 +49,20 @@ export default {
 		...mapActions({
 			ADD_CART_ITEM: "products/ADD_CART_ITEM"
 		}),
-		onClickAdd() {
-			// let item = []
-			// item.id = this.id
-			// item.name = this.name
-			// item.desc = this.desc
-			// item.price = this.price
-			// item.img = this.img
-			// this.ADD_CART_ITEM(item)
+		addOrder(popupData) {
+			let date = new Date();
+			date = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+			
+			let order = []
+			order.id = this.id
+			order.name = this.name
+			order.paymentMethod = popupData.paymentMethod
+			order.addressDelivery = popupData.addressDelivery
+			order.date = date
+			
+			this.ADD_CART_ITEM(order)
+		},
+		openPopup() {
 			this.openPopup();
 		}
 	},

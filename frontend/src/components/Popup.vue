@@ -2,27 +2,28 @@
 	<Transition name="popup">
 		<div class="popup" v-if="isActive">
 			<span class="close-button" @click="closePopup()">&times;</span>
-			<h2>{{ title }}</h2>
+			<h2>Оформление заказа - {{ title }}</h2>
 			<div class="content">
-				<p>{{content}}</p>
+				<p>На сумму : {{price}}</p>
 			</div>
-<!--			<input v-bind="inputValue" type="text" placeholder="Enter some text" />-->
-			<select v-model="paymentMethod">
-				<option value="card">Картой курьеру</option>
-				<option value="cash">Наличными</option>
-				<option value="pickup">Самовывоз</option>
-			</select>
+			<div class="flex flex-col gap-3">
+				<input v-model="addressDelivery" type="text" placeholder="Введите адрес доставки" />
+				<select v-model="paymentMethod">
+					<option value="Картой курьеру">Картой курьеру</option>
+					<option value="Наличными">Наличными</option>
+					<option value="Самовывоз">Самовывоз</option>
+				</select>
+			</div>
+			
 			<div class="actions">
-				<button onclick="confirmPopup()">Confirm</button>
-				<button onclick="cancelPopup()">Cancel</button>
+				<button @click="confirmPopup()">Confirm</button>
+				<button @click="cancelPopup()">Cancel</button>
 			</div>
 		</div>
 	</Transition>
 </template>
 <script>
 import {inject} from "vue";
-import StatusSelect from "@/components/StatusSelect";
-import PaymentSelect from "@/components/PaymentSelect";
 
 export default {
 	name: 'Popup',
@@ -32,25 +33,14 @@ export default {
 			type: String,
 			default: 'Popup Title'
 		},
-		content: {
-			type: String,
-			default: 'This is the popup content.'
-		},
-		inputValue: {
-			type: String,
-			default: ''
-		},
+		price: {type: Number},
 	},
 	components: {
-		StatusSelect,
-		PaymentSelect
 	},
 	data() {
 		return {
-			paymentMethod: {
-				type: String,
-				default: 'card'
-			}
+			paymentMethod: 'Наличными',
+			addressDelivery: ""
 		};
 	},
 	setup(props, { emit }) {
@@ -68,10 +58,14 @@ export default {
 	},
 	methods: {
 		confirmPopup() {
-		
+			let data = []
+			data.paymentMethod = this.paymentMethod
+			data.addressDelivery = this.addressDelivery
+			this.$emit('addOrder', data);
+			this.closePopup()
 		},
 		cancelPopup() {
-		
+			this.closePopup()
 		}
 	}
 }

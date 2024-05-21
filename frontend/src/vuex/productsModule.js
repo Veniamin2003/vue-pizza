@@ -20,18 +20,18 @@ export const productsModule = {
                 // commit("COPY_IN_USERS_BACKUP");
             }
         },
-        async ADD_CART_ITEM({state, commit}, item) {
+        async ADD_CART_ITEM({state, commit}, order) {
             try {
 
                 // commit("SET_LOADING", true);
 
                 await axios.post("http://localhost:5000/orders", {
-                    product_id: item.id,
+                    product_id: order.id,
                     user_id: "2",
-                    order_address: "адрес",
-                    order_date: "2020-10-10",
+                    order_address: order.addressDelivery,
+                    order_date: order.date,
                     order_status: "Не начат",
-                    order_pay_type: "Наличными"
+                    order_pay_type: order.paymentMethod
                 });
             } catch (err) {
                 console.log(err);
