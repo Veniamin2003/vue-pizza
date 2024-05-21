@@ -1,8 +1,19 @@
 <template>
-  <div id="nav" classs="container is-max-desktop"></div>
-  <router-view />
+	<Main />
 </template>
 
 <style>
-@import "~bulma/css/bulma.css";
+/*@import "~bulma/css/bulma.css";*/
+
 </style>
+
+<script>
+import Main from "@/views/Main";
+
+export default {
+	name: 'App',
+	components: {
+		Main
+	}
+}
+</script>

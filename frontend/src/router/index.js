@@ -2,11 +2,17 @@ import { createRouter, createWebHistory } from "vue-router";
 import Index from "../views/Index.vue";
 import Create from "../views/Create.vue";
 import Edit from "../views/Edit.vue";
+import Catalog from "../views/Catalog.vue";
 
 const routes = [
   {
-    name: "Index",
+    name: "Catalog",
     path: "/",
+    component: Catalog,
+  },
+  {
+    name: "Index",
+    path: "/admin",
     component: Index,
   },
   {

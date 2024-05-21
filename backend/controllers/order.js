@@ -9,6 +9,7 @@ import {
 
 // получить все заказы
 export const showOrders = (req, res) => {
+
   getOrders((err, results) => {
     if (err) {
       res.send(err);
@@ -32,6 +33,7 @@ export const showOrderById = (req, res) => {
 // создать новый заказ
 export const createOrder = (req, res) => {
   const data = req.body;
+
   insertOrder(data, (err, results) => {
     if (err) {
       res.send(err);
