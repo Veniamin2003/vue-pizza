@@ -47,7 +47,7 @@ export default {
 	},
 	methods: {
 		...mapActions({
-			ADD_CART_ITEM: "products/ADD_CART_ITEM"
+			ADD_ORDER: "products/ADD_ORDER"
 		}),
 		addOrder(popupData) {
 			let date = new Date();
@@ -60,7 +60,7 @@ export default {
 			order.addressDelivery = popupData.addressDelivery
 			order.date = date
 			
-			this.ADD_CART_ITEM(order)
+			this.ADD_ORDER(order)
 		},
 		openPopup() {
 			this.openPopup();

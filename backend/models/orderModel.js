@@ -3,12 +3,13 @@ import db from "../config/database.js";
 
 //get all products
 export const getOrders = (result) => {
-  let sql = 'SELECT order_id, product_name, user_name, order_address, order_date, order_status, order_pay_type FROM orders INNER JOIN products ON orders.order_id = products.product_id INNER JOIN users ON orders.user_id = users.user_id';
+  let sql = 'SELECT order_id, product_name, user_name, order_address, order_date, order_status, order_pay_type FROM orders INNER JOIN products ON orders.product_id = products.product_id INNER JOIN users ON orders.user_id = users.user_id';
   db.query(sql, (err, results) => {
     if (err) {
       console.log(err);
       result(err, null);
     } else {
+      console.log(results)
       result(null, results);
     }
   });

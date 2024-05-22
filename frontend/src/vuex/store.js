@@ -3,6 +3,6 @@ import {productsModule} from "@/vuex/productsModule";
 
 export default createStore({
     modules: {
-        products: productsModule
+        products: productsModule,
     }
 })

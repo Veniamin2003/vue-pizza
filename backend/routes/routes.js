@@ -16,6 +16,9 @@ import {
   updateOrder,
   deleteOrder,
 } from "../controllers/order.js";
+
+import {showUsers} from "../controllers/user.js";
+
 //init express router
 const router = express.Router();
 
@@ -51,5 +54,11 @@ router.put("/orders/:id", updateOrder);
 // Delete order
 router.delete("/orders/:id", deleteOrder);
 
-//export default router
+// users
+router.delete("/orders/:id", deleteOrder);
+
+// export default router
+// get all users
+router.get("/users", showUsers);
+
 export default router;

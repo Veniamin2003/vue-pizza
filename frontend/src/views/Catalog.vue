@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<h1>Товары</h1>
 		<div class="grid grid-cols-4 gap-5">
 			<ProductCard
 					v-for="product in PRODUCTS"
@@ -16,7 +15,7 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import ProductCard from "@/components/ProductCard";
 
 export default {
@@ -27,8 +26,23 @@ export default {
 	},
 	computed: {
 		...mapGetters({
-			PRODUCTS: "products/PRODUCTS"
+			PRODUCTS: "products/PRODUCTS",
+			IS_ADMIN: "products/IS_ADMIN",
+			IS_USER: "products/IS_USER",
 		}),
+	},
+	methods: {
+		...mapActions({
+			GET_PRODUCTS: "products/GET_PRODUCTS"
+		})
+	},
+	beforeMount() {
+		if (!this.IS_ADMIN && !this.IS_USER) {
+			this.$router.push('/')
+		}
+	},
+	mounted() {
+		this.GET_PRODUCTS();
 	},
 }
 </script>

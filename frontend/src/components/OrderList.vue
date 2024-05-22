@@ -1,9 +1,6 @@
 <template>
-	<div>
-		<router-link :to="{ name: 'Create' }" class="button is-success mt-5"
-		>Add New
-		</router-link
-		>
+	<div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+<!--		<router-link :to="{ name: 'Create' }" class="button is-success mt-5">Add New</router-link>-->
 		<table class="table is-striped is-bordered mt-2 is-fullwidth">
 			<thead>
 			<tr>
@@ -18,7 +15,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr v-for="item in items" :key="item.order_id">
+			<tr v-for="item in ORDERS" :key="item.order_id">
 				<td>{{ item.order_id }}</td>
 				<td>{{ item.product_name }}</td>
 				<td>{{ item.user_name }}</td>
@@ -45,35 +42,29 @@
 	</div>
 </template>
 
-<script setup>
-import axios from 'axios';
+<script>
+import {mapActions, mapGetters} from "vuex";
 
-import { ref, onMounted } from 'vue';
-
-const items = ref([]);
-
-const getOrders = async () => {
-	try {
-		const response = await axios.get("http://localhost:5000/orders");
-		items.value = response.data;
-		console.log(items.value);
-	} catch (err) {
-		console.log(err);
-	}
+export default {
+	name: 'OrderList',
+	components: { },
+	data() {
+		return {}
+	},
+	computed: {
+		...mapGetters({
+			ORDERS: "products/ORDERS",
+		}),
+	},
+	methods: {
+		...mapActions({
+			GET_ORDERS: "products/GET_ORDERS"
+		})
+	},
+	mounted() {
+		this.GET_ORDERS();
+	},
 }
-
-const deleteOrder = async (id) => {
-	try {
-		await axios.delete(`http://localhost:5000/orders/${id}`);
-		getOrders();
-	} catch (err) {
-		console.log(err);
-	}
-}
-
-onMounted(() => {
-	getOrders();
-});
 </script>
 
 <style></style>

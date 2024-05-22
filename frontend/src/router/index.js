@@ -3,17 +3,25 @@ import Index from "../views/Index.vue";
 import Create from "../views/Create.vue";
 import Edit from "../views/Edit.vue";
 import Catalog from "../views/Catalog.vue";
+import Login from "../views/Login.vue";
+import Admin from "../views/Admin.vue";
+import Main from "../views/Main.vue";
 
 const routes = [
   {
-    name: "Catalog",
+    name: "Main",
     path: "/",
+    component: Main,
+  },
+  {
+    name: "Catalog",
+    path: "/catalog",
     component: Catalog,
   },
   {
-    name: "Index",
+    name: "Admin",
     path: "/admin",
-    component: Index,
+    component: Admin,
   },
   {
     name: "Edit",
