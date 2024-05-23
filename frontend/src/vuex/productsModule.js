@@ -38,7 +38,6 @@ export const productsModule = {
         async GET_ORDERS({state, commit}) {
             try {
                 const response = await axios.get("http://localhost:5000/orders");
-                debugger
                 commit('SET_ORDERS', response.data)
 
             } catch (err) {
@@ -74,7 +73,15 @@ export const productsModule = {
             } catch (err) {
                 console.log(err);
             }
-        }
+        },
+        async SET_CURRENT_USER({state, commit}, user) {
+            try {
+                commit('SET_CURRENT_USER', user)
+            } catch (err) {
+                console.log(err);
+            } finally {
+            }
+        },
 
     },
     mutations: {
@@ -95,6 +102,9 @@ export const productsModule = {
         },
         SET_IS_USER(state, isUser) {
             state.isUser = isUser;
+        },
+        SET_CURRENT_USER(state,  user) {
+            state.user = user;
         },
     },
     getters: {

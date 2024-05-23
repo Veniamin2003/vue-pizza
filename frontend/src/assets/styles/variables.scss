@@ -1,0 +1,24 @@
+:root {
+    --appHeight: 100vh;
+    --containerWidth: 1400px;
+
+    --mainFont: 'SST';
+    --additionalFont: 'SST Condensed';
+
+    --basicTextSize: 16px;
+    --basicLineHeight: 160%;
+
+    --defaultTransition: all 0.3s ease-in-out;
+
+    --borderRadius: 10px;
+
+    //colors
+    --primary-color: #fed54f;
+    --primary-dark-color: #ab8a16;
+    --primary-dark-70-color: rgba(171, 138, 22, 0.7);
+
+    --basic-color: #1f2937;
+    --basic-dark-color: #171a1f;
+    --basic-light-color: #3e4765;
+    --white-color: #f5f1e6;
+}

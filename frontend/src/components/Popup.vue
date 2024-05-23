@@ -11,7 +11,6 @@
 				<select v-model="paymentMethod">
 					<option value="Картой курьеру">Картой курьеру</option>
 					<option value="Наличными">Наличными</option>
-					<option value="Самовывоз">Самовывоз</option>
 				</select>
 			</div>
 			

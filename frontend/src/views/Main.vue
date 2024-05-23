@@ -41,6 +41,7 @@ export default {
 
 <style>
 .main {
-	height: calc(100vh - 96px);
+	height: 100%;
+	min-height: calc(100vh - 96px);
 }
 </style>

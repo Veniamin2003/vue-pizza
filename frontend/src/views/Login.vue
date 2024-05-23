@@ -60,15 +60,18 @@ export default {
 		...mapActions({
 			GET_USERS: "products/GET_USERS",
 			SET_IS_ADMIN: "products/SET_IS_ADMIN",
-			SET_IS_USER: "products/SET_IS_USER"
+			SET_IS_USER: "products/SET_IS_USER",
+			SET_CURRENT_USER: "products/SET_CURRENT_USER"
 		}),
 		onSubmit() {
-			debugger
+			// производим поиск в базе данных пользователя с введеным логином и паролем
 			let foundUser = this.USERS.find((user) => user.user_login === this.login && user.user_password === this.password);
-			// let sortedUsers = this.USERS.map((user) => user.user_login === this.login && user.user_password === this.password);
+			
 			if (foundUser) {
 				this.errorMessage = '';
 				try {
+					this.SET_CURRENT_USER(foundUser)
+					
 					if (foundUser.user_role === "admin") {
 						this.SET_IS_ADMIN(true)
 						this.$router.push('/admin');
