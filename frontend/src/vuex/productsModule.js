@@ -57,6 +57,19 @@ export const productsModule = {
                 });
             } catch (err) {
                 console.log(err);
+            }
+        },
+        async UPDATE_ORDER_STATUS({state, commit}, data) {
+            try {
+                console.log("запрос в бд")
+                await axios.put(
+                    `http://localhost:5000/orders/${data.id}`,
+                    {
+                        order_status: data.status
+                    }
+                );
+            } catch (err) {
+                console.log(err);
             } finally {
             }
         },

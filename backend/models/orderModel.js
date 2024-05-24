@@ -44,10 +44,26 @@ export const insertOrder = (data, result) => {
 };
 
 // Update Product to Database
-export const updateOrderById = (data, id, result) => {
+// export const updateOrderById = (data, id, result) => {
+//   db.query(
+//     "UPDATE orders SET order_name = ?, order_price = ? WHERE order_id = ?",
+//     [data.order_name, data.order_price, id],
+//     (err, results) => {
+//       if (err) {
+//         console.log(err);
+//         result(err, null);
+//       } else {
+//         result(null, results);
+//       }
+//     }
+//   );
+// };
+
+// Update Order status
+export const updateOrderStatusById = (data, id, result) => {
   db.query(
-    "UPDATE orders SET order_name = ?, order_price = ? WHERE order_id = ?",
-    [data.order_name, data.order_price, id],
+    "UPDATE orders SET order_status = ? WHERE order_id = ?",
+    [data.order_status, id],
     (err, results) => {
       if (err) {
         console.log(err);

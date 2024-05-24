@@ -13,7 +13,7 @@ import {
   showOrders,
   showOrderById,
   createOrder,
-  updateOrder,
+  updateOrderStatus,
   deleteOrder,
 } from "../controllers/order.js";
 
@@ -49,7 +49,7 @@ router.get("/orders/:id", showOrderById);
 router.post("/orders",  createOrder);
 
 // Update order
-router.put("/orders/:id", updateOrder);
+router.put("/orders/:id", updateOrderStatus);
 
 // Delete order
 router.delete("/orders/:id", deleteOrder);

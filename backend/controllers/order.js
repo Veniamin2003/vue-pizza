@@ -3,7 +3,7 @@ import {
   getOrders,
   getOrderById,
   insertOrder,
-  updateOrderById,
+  updateOrderStatusById,
   deleteOrderById,
 } from "../models/orderModel.js";
 
@@ -44,10 +44,12 @@ export const createOrder = (req, res) => {
 };
 
 // обновить заказ
-export const updateOrder = (req, res) => {
+export const updateOrderStatus = (req, res) => {
   const data = req.body;
   const id = req.params.id;
-  updateOrderById(data, id, (err, results) => {
+  console.log(data)
+  console.log(id)
+  updateOrderStatusById(data, id, (err, results) => {
     if (err) {
       res.send(err);
     } else {
