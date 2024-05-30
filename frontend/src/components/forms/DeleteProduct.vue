@@ -1,7 +1,7 @@
 <template>
 	<div class="deleteProduct">
 		<img :src="DELETE" class="deleteProduct__picture" alt="">
-		<div class="deleteProduct__text">Вы точно хотите удалить данный товар?</div>
+		<div class="deleteProduct__text">Вы действительно хотите удалить данный товар?</div>
 		<div class="deleteProduct__btn">
 			<Button name="Удалить" color="#f44336" @click.prevent="deleteProduct"/>
 		</div>
