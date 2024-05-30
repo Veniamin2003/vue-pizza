@@ -51,7 +51,7 @@
 <!--									<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Settings</a>-->
 <!--								</MenuItem>-->
 								<MenuItem v-slot="{ active }">
-									<a href="/" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign out</a>
+									<a href="/" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Выйти</a>
 								</MenuItem>
 							</MenuItems>
 						</transition>
@@ -73,7 +73,8 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 
 const navigation = [
-	{ name: 'Перейти к магазину', href: 'Catalog', current: true },
+	{ name: 'Заказы', href: 'OrderList'},
+	{ name: 'Товары', href: 'ProductsList' },
 ]
 
 </script>

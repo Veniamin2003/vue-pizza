@@ -1,80 +1,177 @@
 <template>
-	<div class="relative bg-white border border-slate-100 rounded-3xl p-8 cursor-pointer transition hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between gap-3">
-		<div>
-			<img class="w-56" :src="img" alt="Pizza" />
-			<p class="mt-2 font-bold">{{ name }}</p>
-			<p class="mt-2">{{ desc }}</p>
-		</div>
-		
-		<div class="flex justify-between mt-auto">
-			<div class="flex flex-col">
-				<span class="text-state-400">Цена:</span>
-				<b>{{ price }}</b>
+	<div class="productCard">
+		<div class="productCard__card">
+			<div class="productCard__items">
+				<div class="productCard__item">{{ id }}</div>
+				<div class="productCard__item">
+					<img :src="img" class="productCard__picture" alt="Product">
+				</div>
+				<div class="productCard__item">{{ name }}</div>
+				<div class="productCard__item">{{ description }}</div>
+				<div class="productCard__item">{{ price }}</div>
+				<div class="productCard__item productCard__item--status">
+					<img  :src="CHANGE"  @click="openEdit" alt="">
+				</div>
+				<div class="productCard__item productCard__item--delete">
+					<img :src="DELETE" @click="openDelete" alt="">
+				</div>
 			</div>
-			
-			<img @click="openPopup" @update:isActive="isActive = $event" src="../img/plus.svg" alt="Plus" />
 		</div>
+		<Popup :isActive="editIsActive" @update:isActive="editIsActive = $event">
+			<EditProduct
+					:id="id"
+					:img="img"
+					:name="name"
+					:description="description"
+					:price="price"
+					:isActive="editIsActive" @update:isActive="editIsActive = $event"
+			/>
+		</Popup>
+		<Popup :isActive="deleteIsActive" @update:isActive="deleteIsActive = $event">
+			<DeleteProduct
+					:id="id"
+					:img="img"
+					:name="name"
+					:description="description"
+					:price="price"
+					:isActive="deleteIsActive" @update:isActive="deleteIsActive = $event"
+			/>
+		</Popup>
 	</div>
-	<Popup :title="name" :price="price" :isActive="isActive" @addOrder="addOrder"/>
+	
 </template>
 
 <script>
-import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
+import { ref } from "vue";
+import DELETE from "@/img/delete.png";
+import CHANGE from "@/img/change.png";
+import ACCEPT from "@/img/accept.png";
+import EditProduct from "@/components/forms/EditProduct";
 import Popup from "@/components/Popup";
-import {provide, ref} from "vue";
+import DeleteProduct from "@/components/forms/DeleteProduct";
 
 export default {
-	name: 'Main',
-	components: { Popup },
+	name: 'ProductCard',
+	components: {DeleteProduct, Popup, EditProduct},
 	props: {
-		id: {type: Number},
-		name: {type: String},
-		desc: {type: String},
-		price: {type: Number},
-		img: {type: String}
+		id: Number,
+		name: String,
+		description: String,
+		price: Number,
+		img: String
 	},
+	
 	setup() {
-		const isActive = ref(false)
+		const editIsActive = ref(false)
+		const deleteIsActive = ref(false)
 		
-		const openPopup = () => {
-			isActive.value = true
+		const openEditPopup = () => {
+			editIsActive.value = true
 		}
-		provide('isActive', isActive)
+		
+		const openDeletePopup = () => {
+			deleteIsActive.value = true
+		}
+		
 		return {
-			isActive,
-			openPopup
-		}
-	},
-	methods: {
-		...mapActions({
-			ADD_ORDER: "products/ADD_ORDER"
-		}),
-		addOrder(popupData) {
-			let date = new Date();
-			date = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-			
-			let order = []
-			order.id = this.id
-			order.name = this.name
-			order.paymentMethod = popupData.paymentMethod
-			order.addressDelivery = popupData.addressDelivery
-			order.date = date
-			
-			this.ADD_ORDER(order)
-		},
-		openPopup() {
-			this.openPopup();
+			editIsActive,
+			openEditPopup,
+			deleteIsActive,
+			openDeletePopup,
+			DELETE,
+			CHANGE,
+			ACCEPT
 		}
 	},
 	computed: {
-		...mapGetters({
-			PRODUCTS: "products/PRODUCTS"
-		}),
-		...mapState({
-			cartItems: state => state.products.cartItems,
-		})
+	
 	},
+	methods: {
+		openEdit() {
+			this.openEditPopup()
+		},
+		openDelete() {
+			this.openDeletePopup()
+		}
+	},
+	mounted() {
 	
-	
+	},
 }
 </script>
+
+<style lang="scss" scoped>
+.productCard {
+	
+	&__card {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		border-radius: 10px;
+		color: var(--white-color);
+		background-color: rgba(31, 41, 55, 0.7);
+		overflow: hidden;
+		z-index: 10;
+	}
+	&__items {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 30px 125px 6fr 15fr 3fr 70px 70px;
+		align-items: center;
+		gap: 1px;
+	}
+	&__item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		min-height: 65px;
+		height: 100%;
+		position: relative;
+		background-color: var(--basic-color);
+		border-radius: 5px;
+		padding: 10px;
+		
+		&--status {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			
+		}
+		
+		&--delete {
+			display: flex;
+			width: 100%;
+			height: 100%;
+		}
+		
+		&--delete,
+		&--status {
+			@media(hover: hover) {
+				& img {
+					transition: var(--defaultTransition);
+				}
+				
+				&:hover {
+					& img {
+						transform: scale(1.2);
+					}
+				}
+			}
+			
+			& img {
+				width: 25px;
+				height: 25px;
+				object-fit: contain;
+				flex-shrink: 0;
+				cursor: pointer;
+			}
+		}
+	}
+	&__picture {
+		border-radius: 10px;
+	}
+}
+</style>

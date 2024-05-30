@@ -7,7 +7,7 @@
 <script>
 import {mapActions, mapGetters, mapState} from "vuex";
 import AdminHeader from "@/components/AdminHeader";
-import OrderList from "@/components/OrderList";
+import OrderList from "@/views/OrderList";
 
 export default {
 	name: 'Admin',

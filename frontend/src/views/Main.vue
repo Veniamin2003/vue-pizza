@@ -1,7 +1,7 @@
 <template>
 	<div class="main bg-white w-11/12 m-auto rounded-xl shadow-xl mt-14 ">
 		<div v-if="IS_USER">
-			<div>хедер юзеры</div>
+			<Header />
 			<router-view/>
 		</div>
 		<div v-else-if="IS_ADMIN">
@@ -18,10 +18,11 @@
 import {mapActions, mapGetters, mapState} from "vuex";
 import Login from "@/views/Login";
 import AdminHeader from "@/components/AdminHeader";
+import Header from "@/components/Header";
 
 export default {
 	name: 'Main',
-	components: {AdminHeader, Login },
+	components: {AdminHeader, Login, Header },
 	data() {
 		return {}
 	},
@@ -40,8 +41,19 @@ export default {
 </script>
 
 <style>
+.list-enter-active,
+.list-leave-active {
+	transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+	opacity: 0;
+	transform: translateX(30px);
+}
+
 .main {
 	height: 100%;
 	min-height: calc(100vh - 96px);
+	padding-bottom: 50px;
 }
 </style>

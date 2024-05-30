@@ -1,8 +1,5 @@
 <template>
 	<div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-		<!--		<router-link :to="{ name: 'Create' }" class="button is-success mt-5">Add New</router-link>-->
-		
-		
 		<div class="inner">
 			<div class="inner__title">Заказы</div>
 			<div class="inner__orders">
@@ -15,7 +12,7 @@
 					<div>Тип оплаты</div>
 					<div>Статус</div>
 				</div>
-				<div class="inner__cards">
+				<TransitionGroup name="list" tag="div" class="inner__cards">
 					<div v-for="item in ORDERS"
 					     :key="item.order_id"
 					     class="inner__wrapper"
@@ -28,10 +25,9 @@
 								:date="item.order_date.split('T')[0] "
 								:pay_type="item.order_pay_type"
 								:status="item.order_status"
-								@update-order-status="getUsers()"
 						/>
 					</div>
-				</div>
+				</TransitionGroup>
 			</div>
 		</div>
 	</div>
@@ -58,13 +54,9 @@ export default {
 		...mapActions({
 			GET_ORDERS: "products/GET_ORDERS"
 		}),
-		getUsers() {
-			console.log("обновление")
-			this.GET_ORDERS();
-		}
 	},
 	mounted() {
-		this.getUsers()
+		this.GET_ORDERS();
 	},
 }
 </script>

@@ -17,7 +17,11 @@ import {
   deleteOrder,
 } from "../controllers/order.js";
 
-import {showUsers} from "../controllers/user.js";
+import { showUsers } from "../controllers/user.js";
+
+import { showReviews } from "../controllers/reviews.js";
+
+import { showTest } from "../controllers/test.js";
 
 //init express router
 const router = express.Router();
@@ -46,7 +50,7 @@ router.get("/orders", showOrders);
 router.get("/orders/:id", showOrderById);
 
 // Create New order
-router.post("/orders",  createOrder);
+router.post("/orders", createOrder);
 
 // Update order
 router.put("/orders/:id", updateOrderStatus);
@@ -61,4 +65,7 @@ router.delete("/orders/:id", deleteOrder);
 // get all users
 router.get("/users", showUsers);
 
+router.get("/reviews", showReviews);
+
+router.get("/test", showTest);
 export default router;

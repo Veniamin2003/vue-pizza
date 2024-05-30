@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapState} from "vuex";
+import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
 
 export default {
 	name: 'Login',
@@ -63,6 +63,9 @@ export default {
 			SET_IS_USER: "products/SET_IS_USER",
 			SET_CURRENT_USER: "products/SET_CURRENT_USER"
 		}),
+		...mapMutations({
+			SET_TOKEN:"products/SET_TOKEN"
+		}),
 		onSubmit() {
 			// производим поиск в базе данных пользователя с введеным логином и паролем
 			let foundUser = this.USERS.find((user) => user.user_login === this.login && user.user_password === this.password);
@@ -74,11 +77,13 @@ export default {
 					
 					if (foundUser.user_role === "admin") {
 						this.SET_IS_ADMIN(true)
-						this.$router.push('/admin');
+						this.$router.push('/admin/orders');
 					} else if (foundUser.user_role === "user") {
 						this.SET_IS_USER(true)
 						this.$router.push('/catalog');
 					}
+					// this.SET_TOKEN()
+					
 				} catch (err) {
 					console.error(err)
 				}

@@ -1,141 +1,225 @@
 import axios from "axios";
 
 export const productsModule = {
-    state: {
-        products: [],
-        orders: [],
-        cartItems: [],
-        users: [],
-        isAdmin: false,
-        isUser: false,
-        currentUser: {}
+  state: {
+    products: [],
+    orders: [],
+    cartItems: [],
+    users: [],
+    isAdmin: false,
+    isUser: false,
+    currentUser: {},
+    reviews: [],
+    test: [],
+    token: ""
+  },
+  actions: {
+    // PRODUCTS
+    async GET_PRODUCTS({ state, commit }) {
+      try {
+        const response = await axios.get("http://localhost:5000/products");
+
+        commit("SET_PRODUCTS", response.data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+      }
     },
-    actions: {
-        async GET_PRODUCTS({state, commit}) {
-            try {
-                // commit("SET_LOADING", true);
-
-                const response = await axios.get("http://localhost:5000/products");
-
-                commit('SET_PRODUCTS', response.data)
-            } catch (err) {
-                console.log(err);
-            } finally {
-                // commit("SET_LOADING", false);
-                // commit("COPY_IN_USERS_BACKUP");
-            }
-        },
-        async GET_USERS({state, commit}) {
-            try {
-                const response = await axios.get("http://localhost:5000/users");
-
-                commit('SET_USERS', response.data)
-            } catch (err) {
-                console.log(err);
-            } finally {
-            }
-        },
-        async GET_ORDERS({state, commit}) {
-            try {
-                const response = await axios.get("http://localhost:5000/orders");
-                commit('SET_ORDERS', response.data)
-
-            } catch (err) {
-                console.log(err);
-            } finally {
-            }
-        },
-        async ADD_ORDER({state, commit}, order) {
-            try {
-                await axios.post("http://localhost:5000/orders", {
-                    product_id: order.id,
-                    user_id: "2",
-                    order_address: order.addressDelivery,
-                    order_date: order.date,
-                    order_status: "Не начат",
-                    order_pay_type: order.paymentMethod
-                });
-            } catch (err) {
-                console.log(err);
-            }
-        },
-        async UPDATE_ORDER_STATUS({state, commit}, data) {
-            try {
-                console.log("запрос в бд")
-                await axios.put(
-                    `http://localhost:5000/orders/${data.id}`,
-                    {
-                        order_status: data.status
-                    }
-                );
-            } catch (err) {
-                console.log(err);
-            } finally {
-            }
-        },
-        SET_IS_ADMIN({state, commit}, isAdmin){
-            try {
-                commit('SET_IS_ADMIN', isAdmin)
-            } catch (err) {
-                console.log(err);
-            }
-        },
-        SET_IS_USER({state, commit}, isUser){
-            try {
-                commit('SET_IS_USER', isUser)
-            } catch (err) {
-                console.log(err);
-            }
-        },
-        async SET_CURRENT_USER({state, commit}, user) {
-            try {
-                commit('SET_CURRENT_USER', user)
-            } catch (err) {
-                console.log(err);
-            } finally {
-            }
-        },
-
+    async ADD_PRODUCT({ state, commit, dispatch }, data) {
+      try {
+        await axios.post("http://localhost:5000/products", {
+          product_name: data.name,
+          product_description: data.description,
+          product_price: data.price,
+          product_img: data.img,
+        });
+      } catch (err) {
+        console.log(err);
+      } finally {
+        dispatch("GET_PRODUCTS")
+      }
     },
-    mutations: {
-        SET_PRODUCTS(state, products) {
-            state.products = products;
-        },
-        SET_USERS(state, users) {
-            state.users = users;
-        },
-        SET_ORDERS(state, orders) {
-            state.orders = orders;
-        },
-        ADD_ORDER(state, item) {
-            state.cartItems.push(item)
-        },
-        SET_IS_ADMIN(state, isAdmin) {
-            state.isAdmin = isAdmin;
-        },
-        SET_IS_USER(state, isUser) {
-            state.isUser = isUser;
-        },
-        SET_CURRENT_USER(state,  user) {
-            state.user = user;
-        },
+    async UPDATE_PRODUCT({ state, commit, dispatch }, data) {
+      try {
+        await axios.put(`http://localhost:5000/products/${data.id}`, {
+          product_name: data.name,
+          product_description: data.description,
+          product_price: data.price,
+          product_img: data.img,
+        });
+      } catch (err) {
+        console.log(err);
+      } finally {
+        dispatch("GET_PRODUCTS")
+      }
     },
-    getters: {
-        PRODUCTS(state){
-            return state.products;
-        },
-        ORDERS(state){
-            return state.orders;
-        },
-        USERS(state){
-            return state.users;
-        },
-        IS_ADMIN(state){
-            return state.isAdmin;
-        },
-        IS_USER(state){
-            return state.isUser;
-        }
+    async DELETE_PRODUCT({ state, commit, dispatch }, id) {
+      try {
+        await axios.delete(`http://localhost:5000/products/${id}`)
+      } catch (err) {
+        console.log(err);
+      } finally {
+        dispatch("GET_PRODUCTS")
+      }
     },
-    namespaced: true
-}
+
+    // USERS
+    async GET_USERS({ state, commit }) {
+      try {
+        const response = await axios.get("http://localhost:5000/users");
+        commit("SET_USERS", response.data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+      }
+    },
+    async SET_CURRENT_USER({ state, commit }, user) {
+      try {
+        commit("SET_CURRENT_USER", user);
+      } catch (err) {
+        console.log(err);
+      } finally {
+      }
+    },
+
+    // ORDERS
+    async GET_ORDERS({ state, commit}) {
+      try {
+        const response = await axios.get("http://localhost:5000/orders");
+        commit("SET_ORDERS", response.data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+      }
+    },
+    async ADD_ORDER({ state, commit }, order) {
+      try {
+        await axios.post("http://localhost:5000/orders", {
+          product_id: order.id,
+          user_id: "2",
+          order_address: order.addressDelivery,
+          order_date: order.date,
+          order_status: "Не начат",
+          order_pay_type: order.paymentMethod,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async UPDATE_ORDER_STATUS({ state, commit, dispatch }, data) {
+      try {
+        await axios.put(`http://localhost:5000/orders/${data.id}`, {
+          order_status: data.status,
+        });
+      } catch (err) {
+        console.log(err);
+      } finally {
+        dispatch("GET_ORDERS")
+      }
+    },
+
+    // REVIEWS
+    async GET_REVIEWS({ state, commit }) {
+      try {
+        const response = await axios.get("http://localhost:5000/reviews");
+        commit("SET_REVIEWS", response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async ADD_REVIEW({ state, commit }, review) {
+      try {
+        await axios.post("http://localhost:5000/reviews", {
+          name: review.name,
+          review: review.desc,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    // OTHER
+    SET_IS_ADMIN({ state, commit }, isAdmin) {
+      try {
+        commit("SET_IS_ADMIN", isAdmin);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    SET_IS_USER({ state, commit }, isUser) {
+      try {
+        commit("SET_IS_USER", isUser);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async GET_TEST({ state, commit }) {
+      try {
+        const response = await axios.get("http://localhost:5000/test");
+        commit("SET_TEST", response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  },
+  mutations: {
+    SET_PRODUCTS(state, products) {
+      state.products = products;
+    },
+    SET_USERS(state, users) {
+      state.users = users;
+    },
+    SET_ORDERS(state, orders) {
+      state.orders = orders;
+    },
+    ADD_ORDER(state, item) {
+      state.cartItems.push(item);
+    },
+    SET_IS_ADMIN(state, isAdmin) {
+      state.isAdmin = isAdmin;
+    },
+    SET_IS_USER(state, isUser) {
+      state.isUser = isUser;
+    },
+    SET_CURRENT_USER(state, user) {
+      state.user = user;
+    },
+    SET_REVIEWS(state, reviews) {
+      state.reviews = reviews;
+    },
+    SET_TEST(state, test) {
+      state.test = test;
+    },
+    SET_TOKEN(state, token) {
+      state.token = token;
+      localStorage.setItem('token', token)
+    },
+  },
+  getters: {
+    PRODUCTS(state) {
+      return state.products;
+    },
+    ORDERS(state) {
+      return state.orders;
+    },
+    USERS(state) {
+      return state.users;
+    },
+    IS_ADMIN(state) {
+      return state.isAdmin;
+    },
+    IS_USER(state) {
+      return state.isUser;
+    },
+    REVIEWS(state) {
+      return state.reviews;
+    },
+    TEST(state) {
+      return state.test;
+    },
+    TOKEN(state) {
+      return state.token;
+    }
+  },
+  namespaced: true,
+};

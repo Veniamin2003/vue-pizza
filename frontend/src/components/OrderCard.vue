@@ -52,21 +52,8 @@ export default {
 	setup() {
 		const isStatusChanged = ref(false)
 		
-		// const changeSelectStatus = (status) => {
-		// 	isStatusChanged.value = status
-		// }
-		// const changeStatus = () => {
-		// 	isStatusChanged.value = true
-		// }
-		// const saveStatus = () => {
-		//
-		// }
-		
 		return {
 			isStatusChanged,
-			// changeSelectStatus,
-			//changeStatus,
-			//saveStatus,
 			newStatus: "Не начат",
 			DELETE,
 			CHANGE,
@@ -98,7 +85,6 @@ export default {
 		}
 	},
 	mounted() {
-		debugger
 	},
 }
 </script>

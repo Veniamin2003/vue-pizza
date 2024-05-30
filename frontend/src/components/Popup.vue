@@ -2,22 +2,7 @@
 	<Transition name="popup">
 		<div class="popup" v-if="isActive">
 			<span class="close-button" @click="closePopup()">&times;</span>
-			<h2>Оформление заказа - {{ title }}</h2>
-			<div class="content">
-				<p>На сумму : {{price}}</p>
-			</div>
-			<div class="flex flex-col gap-3">
-				<input v-model="addressDelivery" type="text" placeholder="Введите адрес доставки" />
-				<select v-model="paymentMethod">
-					<option value="Картой курьеру">Картой курьеру</option>
-					<option value="Наличными">Наличными</option>
-				</select>
-			</div>
-			
-			<div class="actions">
-				<button @click="confirmPopup()">Confirm</button>
-				<button @click="cancelPopup()">Cancel</button>
-			</div>
+			<slot></slot>
 		</div>
 	</Transition>
 </template>
@@ -27,45 +12,15 @@ import {inject} from "vue";
 export default {
 	name: 'Popup',
 	props: {
-		isActive: {type: Boolean},
-		title: {
-			type: String,
-			default: 'Popup Title'
+		isActive: {
+			type: Boolean,
+			required: true,
 		},
-		price: {type: Number},
-	},
-	components: {
-	},
-	data() {
-		return {
-			paymentMethod: 'Наличными',
-			addressDelivery: ""
-		};
-	},
-	setup(props, { emit }) {
-		const isActive = inject('isActive')
-		
-		const closePopup = () => {
-			isActive.value = !isActive.value
-			emit('update:isActive', isActive.value)
-		}
-		
-		return {
-			isActive,
-			closePopup
-		}
 	},
 	methods: {
-		confirmPopup() {
-			let data = []
-			data.paymentMethod = this.paymentMethod
-			data.addressDelivery = this.addressDelivery
-			this.$emit('addOrder', data);
-			this.closePopup()
+		closePopup() {
+			this.$emit('update:isActive', false);
 		},
-		cancelPopup() {
-			this.closePopup()
-		}
 	}
 }
 </script>
@@ -97,6 +52,7 @@ export default {
 	background-color: white;
 	padding: 20px;
 	border: 1px solid #ccc;
+	border-radius: 15px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	z-index: 1000;
 	max-width: 80%;
@@ -110,9 +66,9 @@ export default {
 
 .popup .close-button {
 	position: absolute;
-	top: 10px;
+	top: 5px;
 	right: 15px;
-	font-size: 1.5em;
+	font-size: 3em;
 	cursor: pointer;
 }
 

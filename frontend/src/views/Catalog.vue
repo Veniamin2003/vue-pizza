@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="grid grid-cols-4 gap-5">
-			<ProductCard
+			<CatalogCard
 					v-for="product in PRODUCTS"
 					:key="product.product_id"
 					:id="product.product_id"
@@ -16,11 +16,11 @@
 
 <script>
 import {mapActions, mapGetters} from "vuex";
-import ProductCard from "@/components/ProductCard";
+import CatalogCard from "@/components/CatalogCard";
 
 export default {
 	name: 'Catalog',
-	components: { ProductCard },
+	components: { CatalogCard },
 	data() {
 		return {}
 	},
