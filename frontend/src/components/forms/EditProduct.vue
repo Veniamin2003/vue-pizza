@@ -2,20 +2,20 @@
 	<div class="editProduct">
 		<div class="editProduct__title">Редактирование товара</div>
 		<form class="form">
-			<div class="form-group">
+			<div class="form__group">
 				<label for="name">Фотография</label>
 				<input type="text" id="name" v-model="newImg" />
 			</div>
-			<div class="form-group">
+			<div class="form__group">
 				<label for="email">Название</label>
 				<input type="email" id="email" v-model="newName" />
 			</div>
-			<div class="form-group">
+			<div class="form__group">
 				<label for="phone">Описание</label>
 				<input type="tel" id="phone" v-model="newDescription" />
 			</div>
-			<div class="form-group">
-				<label for="address">Цена</label>
+			<div class="form__group">
+				<label class="form__label" for="address">Цена</label>
 				<input type="text" id="address" v-model="newPrice" />
 			</div>
 			
@@ -70,36 +70,13 @@ export default {
 	}
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .editProduct {
 	&__title {
 		font-size: 28px;
 		font-weight: 600;
 	}
 }
-.form {
-	max-width: 400px;
-	margin: 40px auto;
-	padding: 20px;
-}
 
-.form-group {
-	margin-bottom: 20px;
-}
 
-label {
-	display: block;
-	margin-bottom: 10px;
-	font-weight: bold;
-	color: #333;
-}
-
-input {
-	width: 100%;
-	height: 40px;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	font-size: 16px;
-}
 </style>

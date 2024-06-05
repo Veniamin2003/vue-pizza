@@ -15,7 +15,7 @@
 					<img v-else :src="ACCEPT" @click="saveStatus" alt="">
 				</div>
 				<div class="orderCard__item orderCard__item--delete">
-					<img :src="DELETE" alt="">
+					<img :src="DELETE" @click="openDelete" alt="">
 				</div>
 			</div>
 		</div>
@@ -25,6 +25,12 @@
 			<option value="Завершен">Завершен</option>
 			<option value="Отклонен">Отклонен</option>
 		</select>
+		<Popup :isActive="deleteIsActive" @update:isActive="deleteIsActive = $event">
+			<DeleteOrder
+					:id="id"
+					:isActive="deleteIsActive" @update:isActive="deleteIsActive = $event"
+			/>
+		</Popup>
 	</div>
 </template>
 
@@ -34,12 +40,14 @@ import DELETE from "@/img/delete.png";
 import CHANGE from "@/img/change.png";
 import ACCEPT from "@/img/accept.png";
 import {mapActions, mapGetters} from "vuex";
+import Popup from "@/components/Popup";
+import DeleteOrder from "@/components/forms/DeleteOrder";
 
 
 
 export default {
 	name: 'OrderCard',
-	components: {},
+	components: {DeleteOrder, Popup},
 	props: {
 		id: Number,
 		product_name: String,
@@ -52,8 +60,16 @@ export default {
 	setup() {
 		const isStatusChanged = ref(false)
 		
+		const deleteIsActive = ref(false)
+		
+		const openDeletePopup = () => {
+			deleteIsActive.value = true
+		}
+		
 		return {
 			isStatusChanged,
+			openDeletePopup,
+			deleteIsActive,
 			newStatus: "Не начат",
 			DELETE,
 			CHANGE,
@@ -82,6 +98,9 @@ export default {
 			} catch (err) {
 				console.error(err)
 			}
+		},
+		openDelete() {
+			this.openDeletePopup()
 		}
 	},
 	mounted() {

@@ -30,10 +30,6 @@
 		<Popup :isActive="deleteIsActive" @update:isActive="deleteIsActive = $event">
 			<DeleteProduct
 					:id="id"
-					:img="img"
-					:name="name"
-					:description="description"
-					:price="price"
 					:isActive="deleteIsActive" @update:isActive="deleteIsActive = $event"
 			/>
 		</Popup>
@@ -93,10 +89,7 @@ export default {
 		openDelete() {
 			this.openDeletePopup()
 		}
-	},
-	mounted() {
-	
-	},
+	}
 }
 </script>
 

@@ -1,9 +1,9 @@
 <template>
-	<div class="deleteProduct">
-		<img :src="DELETE" class="deleteProduct__picture" alt="">
-		<div class="deleteProduct__text">Вы действительно хотите удалить данный товар?</div>
-		<div class="deleteProduct__btn">
-			<Button name="Удалить" color="#f44336" @click.prevent="deleteProduct"/>
+	<div class="deleteOrder">
+		<img :src="DELETE" class="deleteOrder__picture" alt="">
+		<div class="deleteOrder__text">Вы действительно хотите удалить данный заказ?</div>
+		<div class="deleteOrder__btn">
+			<Button name="Удалить" color="#f44336" @click.prevent="deleteOrder"/>
 		</div>
 	</div>
 </template>
@@ -13,7 +13,7 @@ import Button from "@/components/btns/Button";
 import DELETE from "@/img/delete.png";
 
 export default {
-	name: 'DeleteProduct',
+	name: 'DeleteOrder',
 	props: {
 		isActive: Boolean,
 		id: Number,
@@ -31,17 +31,17 @@ export default {
 	},
 	methods: {
 		...mapActions({
-			DELETE_PRODUCT: "products/DELETE_PRODUCT"
+			DELETE_ORDER: "products/DELETE_ORDER"
 		}),
-		deleteProduct() {
-			this.DELETE_PRODUCT(this.id)
+		deleteOrder() {
+			this.DELETE_ORDER(this.id)
 			this.$emit('update:isActive', false);
 		},
 	}
 }
 </script>
 <style lang="scss" scoped>
-.deleteProduct {
+.deleteOrder {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
