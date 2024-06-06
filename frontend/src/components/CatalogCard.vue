@@ -17,8 +17,11 @@
 	</div>
 	<Popup :isActive="isActive" @update:isActive="isActive = $event">
 		<AddOrder
+				:id="id"
 				:title="name"
+				:desc="desc"
 				:price="price"
+				:img="img"
 				@addOrder="addOrder"
 				:isActive="isActive"
 				@update:isActive="isActive = $event"

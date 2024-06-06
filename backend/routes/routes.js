@@ -17,11 +17,12 @@ import {
   deleteOrder,
 } from "../controllers/order.js";
 
-import { showUsers } from "../controllers/user.js";
+import {showUserById, showUsers, updateUser} from "../controllers/user.js";
 
 import { showReviews } from "../controllers/reviews.js";
 
 import { showTest } from "../controllers/test.js";
+import {getUserById} from "../models/userModel.js";
 
 //init express router
 const router = express.Router();
@@ -64,6 +65,12 @@ router.delete("/orders/:id", deleteOrder);
 // export default router
 // get all users
 router.get("/users", showUsers);
+
+//получить одного пользователя
+router.get("/users/:id", showUserById);
+
+//обновить пользователя
+router.put("/users/:id", updateUser);
 
 router.get("/reviews", showReviews);
 

@@ -61,10 +61,11 @@ export default {
 			GET_USERS: "products/GET_USERS",
 			SET_IS_ADMIN: "products/SET_IS_ADMIN",
 			SET_IS_USER: "products/SET_IS_USER",
-			SET_CURRENT_USER: "products/SET_CURRENT_USER"
+			
 		}),
 		...mapMutations({
-			SET_TOKEN:"products/SET_TOKEN"
+			SET_TOKEN:"products/SET_TOKEN",
+			SET_CURRENT_USER: "products/SET_CURRENT_USER"
 		}),
 		onSubmit() {
 			// производим поиск в базе данных пользователя с введеным логином и паролем

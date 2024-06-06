@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import {mapGetters, mapState} from "vuex";
+import {mapActions, mapGetters, mapState} from "vuex";
 import Button from "@/components/btns/Button";
 import Popup from "@/components/Popup";
 import EditUser from "@/components/forms/EditUser";
@@ -75,12 +75,16 @@ export default {
 		};
 	},
 	methods: {
+		...mapActions({
+			GET_CURRENT_USER: "products/GET_CURRENT_USER"
+		}),
 		openEdit() {
 			this.openEditPopup()
 		},
 	},
 	
 	mounted() {
+		this.GET_CURRENT_USER()
 	}
 };
 </script>
