@@ -4,11 +4,13 @@ import Create from "../views/Create.vue";
 import Edit from "../views/Edit.vue";
 import Catalog from "../views/Catalog.vue";
 import Login from "../views/Login.vue";
+import Registration from "../views/Registration.vue";
 import Admin from "../views/Admin.vue";
 import Main from "../views/Main.vue";
 import Contacts from "../views/Contacts.vue";
 import About from "../views/About.vue";
 import User from "../views/User.vue";
+import UserOrders from "../views/UserOrders.vue";
 import OrderList from "../views/OrderList.vue";
 import ProductsList from "../views/ProductsList.vue";
 
@@ -17,6 +19,16 @@ const routes = [
     name: "Main",
     path: "/",
     component: Main,
+  },
+  {
+    name: "Login",
+    path: "/login",
+    component: Login,
+  },
+  {
+    name: "Registration",
+    path: "/registration",
+    component: Registration,
   },
   {
     name: "Catalog",
@@ -57,6 +69,11 @@ const routes = [
     name: "User",
     path: "/user",
     component: User,
+  },
+  {
+    name: "UserOrders",
+    path: "/user/orders",
+    component: UserOrders,
   },
 ];
 

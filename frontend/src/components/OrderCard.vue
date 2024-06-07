@@ -1,25 +1,27 @@
 <template>
-	<div class="orderCard">
+	<div :class="{ 'orderCard--small': !isFullSuccess }" class="orderCard">
 		<div class="orderCard__card">
 			<div class="orderCard__items">
 				<div class="orderCard__item">{{ id }}</div>
 				<div class="orderCard__item">{{ product_name }}</div>
-				<div class="orderCard__item">{{ user_name }}</div>
+				<div v-if="isFullSuccess" class="orderCard__item">{{ user_name }}</div>
 				<div class="orderCard__item">{{ address }}</div>
 				<div class="orderCard__item">{{ date }}</div>
 				<div class="orderCard__item">{{ pay_type }}</div>
 				<div class="orderCard__item orderCard__item--status">
 					{{ status }}
 				
-					<img v-if="!isStatusChanged" :src="CHANGE"  @click="changeStatus" alt="">
-					<img v-else :src="ACCEPT" @click="saveStatus" alt="">
+					<div v-if="isFullSuccess">
+						<img v-if="!isStatusChanged" :src="CHANGE"  @click="changeStatus" alt="">
+						<img v-else :src="ACCEPT" @click="saveStatus" alt="">
+					</div>
 				</div>
-				<div class="orderCard__item orderCard__item--delete">
+				<div v-if="isFullSuccess" class="orderCard__item orderCard__item--delete">
 					<img :src="DELETE" @click="openDelete" alt="">
 				</div>
 			</div>
 		</div>
-		<select v-model="newStatus" class="orderCard__select" :class="{ active: isStatusChanged }">
+		<select v-if="isFullSuccess" v-model="newStatus" class="orderCard__select" :class="{ active: isStatusChanged }">
 			<option value="Не начат">Не начат</option>
 			<option value="В процессе">В процессе</option>
 			<option value="Завершен">Завершен</option>
@@ -55,7 +57,8 @@ export default {
 		address: String,
 		date: Date,
 		pay_type: String,
-		status: String
+		status: String,
+		isFullSuccess: { type: Boolean, default: true}
 	},
 	setup() {
 		const isStatusChanged = ref(false)
@@ -113,6 +116,14 @@ export default {
 	display: grid;
 	grid-template-columns: auto 130px;
 	gap: 1px;
+	
+	&--small {
+		grid-template-columns: auto;
+		
+		.orderCard__items {
+			grid-template-columns: 30px 10fr 13fr 5fr 5fr 140px;
+		}
+	}
 	
 	&__card {
 		position: relative;

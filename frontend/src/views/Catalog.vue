@@ -1,15 +1,19 @@
 <template>
-	<div>
-		<div class="grid grid-cols-4 gap-5">
-			<CatalogCard
-					v-for="product in PRODUCTS"
-					:key="product.product_id"
-					:id="product.product_id"
-					:name="product.product_name"
-					:desc="product.product_description"
-					:price="product.product_price"
-					:img="product.product_img"
-			/>
+	<div class="catalog">
+		<div class="catalog__fscreen"></div>
+		<div class="catalog__content">
+			<div class="catalog__title">Каталог товаров</div>
+			<div class="grid grid-cols-4 gap-5">
+				<CatalogCard
+						v-for="product in PRODUCTS"
+						:key="product.product_id"
+						:id="product.product_id"
+						:name="product.product_name"
+						:desc="product.product_description"
+						:price="product.product_price"
+						:img="product.product_img"
+				/>
+			</div>
 		</div>
 	</div>
 </template>
@@ -38,7 +42,7 @@ export default {
 	},
 	beforeMount() {
 		if (!this.IS_ADMIN && !this.IS_USER) {
-			this.$router.push('/')
+			this.$router.push('/login')
 		}
 	},
 	mounted() {
@@ -46,3 +50,32 @@ export default {
 	},
 }
 </script>
+
+<style lang="scss" scoped>
+.catalog {
+	
+	&__fscreen {
+		height: 652px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 20px;
+		background-image: url("../img/fscreen.jpg");
+		background-size: 100% auto;
+		background-position: center;
+		background-repeat: no-repeat;
+		color: #fff;
+	}
+	&__content {
+		display: flex;
+		flex-direction: column;
+		gap: 25px;
+		padding: 0 25px;
+		margin-top: 30px;
+	}
+	&__title {
+		font-size: 45px;
+		font-weight: 600;
+	}
+}
+</style>

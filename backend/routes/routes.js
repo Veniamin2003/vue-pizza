@@ -17,7 +17,7 @@ import {
   deleteOrder,
 } from "../controllers/order.js";
 
-import {showUserById, showUsers, updateUser} from "../controllers/user.js";
+import {showUserById, showUsers, updateUser, createUser} from "../controllers/user.js";
 
 import { showReviews } from "../controllers/reviews.js";
 
@@ -59,10 +59,11 @@ router.put("/orders/:id", updateOrderStatus);
 // Delete order
 router.delete("/orders/:id", deleteOrder);
 
-// users
 router.delete("/orders/:id", deleteOrder);
+// users
+// добавить пользователя
+router.post("/users", createUser);
 
-// export default router
 // get all users
 router.get("/users", showUsers);
 

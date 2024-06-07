@@ -7,13 +7,15 @@
 		</div>
 		
 		<div class="flex justify-between mt-auto">
-			<div class="flex flex-col">
+			<div class="flex gap-1.5">
 				<span class="text-state-400">Цена:</span>
 				<b>{{ price }}</b>
 			</div>
 			
-			<img @click="openPopup" @update:isActive="isActive = $event" src="../img/plus.svg" alt="Plus" />
+			
+<!--			<img @click="openPopup" @update:isActive="isActive = $event" src="../img/plus.svg" alt="Plus" />-->
 		</div>
+		<Button class="btn" name="Оформить заказ" color="#fed54f" @click="openPopup"/>
 	</div>
 	<Popup :isActive="isActive" @update:isActive="isActive = $event">
 		<AddOrder
@@ -34,10 +36,11 @@ import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
 import Popup from "@/components/Popup";
 import {provide, ref} from "vue";
 import AddOrder from "@/components/forms/AddOrder";
+import Button from "@/components/btns/Button";
 
 export default {
 	name: 'CatalogCard',
-	components: {AddOrder, Popup },
+	components: {Button, AddOrder, Popup },
 	props: {
 		id: {type: Number},
 		name: {type: String},
@@ -90,3 +93,10 @@ export default {
 	
 }
 </script>
+
+<style lang="scss" scoped>
+.btn {
+	color: #000000;
+	font-weight: 500;
+}
+</style>

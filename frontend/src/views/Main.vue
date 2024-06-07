@@ -8,8 +8,8 @@
 			<AdminHeader />
 			<router-view/>
 		</div>
-		<div v-else class="login">
-			<Login />
+		<div v-else >
+			<router-view/>
 		</div>
 	</div>
 </template>
@@ -34,7 +34,7 @@ export default {
 	},
 	beforeMount() {
 		if (!this.IS_ADMIN && !this.IS_USER) {
-			this.$router.push('/')
+			this.$router.push('/login')
 		}
 	},
 }
@@ -53,7 +53,7 @@ export default {
 
 .main {
 	height: 100%;
-	min-height: calc(100vh - 96px);
+	min-height: calc(100vh - 110px);
 	padding-bottom: 50px;
 }
 </style>

@@ -11,7 +11,8 @@ export const productsModule = {
     currentUser: {},
     reviews: [],
     test: [],
-    token: ""
+    token: "",
+    filteredOrders: []
   },
   actions: {
     // PRODUCTS
@@ -84,6 +85,22 @@ export const productsModule = {
       } finally {
       }
     },
+    async ADD_USER({ state, commit }, user) {
+      try {
+
+        await axios.post("http://localhost:5000/users", {
+          user_name: user.name,
+          user_login: user.login,
+          user_phone: user.phone,
+          user_password: user.password ,
+          user_role: "user",
+          user_img: user.img,
+          user_about: user.about,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
     async UPDATE_USER({ state, commit, dispatch }, data) {
       try {
         await axios.put(`http://localhost:5000/users/${data.id}`, {
@@ -112,6 +129,7 @@ export const productsModule = {
       try {
         const response = await axios.get("http://localhost:5000/orders");
         commit("SET_ORDERS", response.data);
+        commit("SET_CURRENT_USER_ORDERS", response.data);
       } catch (err) {
         console.log(err);
       } finally {
@@ -207,6 +225,9 @@ export const productsModule = {
     SET_ORDERS(state, orders) {
       state.orders = orders;
     },
+    SET_CURRENT_USER_ORDERS(state, filteredOrders) {
+      state.filteredOrders = filteredOrders.filter(order => order.user_id === state.currentUser.user_id);
+    },
     ADD_ORDER(state, item) {
       state.cartItems.push(item);
     },
@@ -251,6 +272,9 @@ export const productsModule = {
     },
     CURRENT_USER(state) {
       return state.currentUser;
+    },
+    CURRENT_USER_ORDERS(state) {
+      return state.filteredOrders;
     },
     TEST(state) {
       return state.test;

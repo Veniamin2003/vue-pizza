@@ -27,6 +27,9 @@ const emit = defineEmits(['openDrawer'])
       <li class="flex items-center gap-3 text-neutral-800 cursor-pointer hover:text-black">
         <router-link :to="{ name: 'Contacts' }">Контакты</router-link>
       </li>
+      <li class="flex items-center gap-3 text-neutral-800 cursor-pointer hover:text-black">
+        <router-link :to="{ name: 'UserOrders' }">Мои заказы</router-link>
+      </li>
       <!-- <li
         @click="() => emit('openDrawer')"
         class="flex items-center gap-3 text-neutral-800 cursor-pointer hover:text-black"

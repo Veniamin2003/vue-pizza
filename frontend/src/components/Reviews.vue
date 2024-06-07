@@ -1,34 +1,34 @@
 <template>
   <section class="mb-12">
-    <h2 class="text-3xl font-semibold mb-4">Отсавить отзыв</h2>
-    <form @submit.prevent="submitForm" class="space-y-4">
-      <div>
-        <label class="block text-lg font-medium mb-2" for="name">Имя</label>
-        <input
-          class="w-full p-2 border border-gray-300 rounded"
-          type="text"
-          v-model="name"
-          required
-        />
-      </div>
-      <div>
-        <label class="block text-lg font-medium mb-2" for="message"
-          >Ваш отзыв</label
-        >
-        <textarea
-          class="w-full p-2 border border-gray-300 rounded"
-          v-model="desc"
-          required
-        ></textarea>
-      </div>
-      <button
-        @click="addReviews()"
-        class="bg-blue-500 text-white p-2 rounded"
-        type="submit"
-      >
-        Отправить
-      </button>
-    </form>
+<!--    <h2 class="text-3xl font-semibold mb-4">Отсавить отзыв</h2>-->
+<!--    <form @submit.prevent="submitForm" class="space-y-4">-->
+<!--      <div>-->
+<!--        <label class="block text-lg font-medium mb-2" for="name">Имя</label>-->
+<!--        <input-->
+<!--          class="w-full p-2 border border-gray-300 rounded"-->
+<!--          type="text"-->
+<!--          v-model="name"-->
+<!--          required-->
+<!--        />-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label class="block text-lg font-medium mb-2" for="message"-->
+<!--          >Ваш отзыв</label-->
+<!--        >-->
+<!--        <textarea-->
+<!--          class="w-full p-2 border border-gray-300 rounded"-->
+<!--          v-model="desc"-->
+<!--          required-->
+<!--        ></textarea>-->
+<!--      </div>-->
+<!--      <button-->
+<!--        @click="addReviews()"-->
+<!--        class="bg-blue-500 text-white p-2 rounded"-->
+<!--        type="submit"-->
+<!--      >-->
+<!--        Отправить-->
+<!--      </button>-->
+<!--    </form>-->
   </section>
   <section class="mb-12">
     <h2 class="text-3xl font-semibold mb-4">Отзывы наших клиентов</h2>

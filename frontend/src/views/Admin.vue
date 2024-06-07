@@ -31,7 +31,7 @@ export default {
 	},
 	beforeMount() {
 		if (!this.IS_ADMIN && !this.IS_USER) {
-			this.$router.push('/')
+			this.$router.push('/login')
 		}
 	},
 }

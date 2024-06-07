@@ -23,7 +23,6 @@
     </section>
 
     <Reviews />
-    <Test />
   </div>
 </template>
 
